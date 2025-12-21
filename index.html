@@ -33,7 +33,7 @@
     .card {
       width: 100%;
       max-width: 540px;
-      background: #ffffff;
+      background: #ffffffdd;
       border-radius: 22px;
       padding: 26px;
       box-shadow: 0 18px 45px rgba(0,0,0,0.35);
@@ -112,14 +112,19 @@
 
     .result {
       margin-top: 20px;
-      padding: 16px;
-      background: #f1f8f5;
-      border-radius: 14px;
+      padding: 18px;
+      background: linear-gradient(145deg, #f1f8f5, #e0f0eb);
+      border-radius: 16px;
       white-space: pre-line;
-      text-align: center;
       font-weight: 700;
-      color: #004d28;
-      border-right: 5px solid #d21034; /* الأحمر */
+      text-align: right;
+      border-right: 6px solid #d21034; /* الأحمر الجزائري */
+      transition: all 0.4s ease;
+    }
+
+    .result span {
+      display: block;
+      margin: 4px 0;
     }
 
     footer {
@@ -166,7 +171,7 @@
     <option value="دائرة أخرى">دائرة أخرى</option>
   </select>
 
-  <button onclick="calculate()">احسب مجموع النقاط</button>
+  <button id="calcBtn">احسب مجموع النقاط</button>
 
   <div class="result" id="result"></div>
 
@@ -176,6 +181,7 @@
 </div>
 
 <script>
+  // الدوال لحساب النقاط
   function pointsSeniority(months) {
     let years = Math.floor(months / 12);
     return years > 30 ? 30 : years;
@@ -200,41 +206,45 @@
     return 5;
   }
 
-  function calculate() {
-    let months = parseInt(monthsInput.value) || 0;
-    let income = parseFloat(incomeInput.value) || 0;
-    let snmg = parseFloat(snmgInput.value) || 0;
+  // التأكد من تحميل DOM قبل استخدام العناصر
+  document.addEventListener("DOMContentLoaded", function() {
+    const monthsInput = document.getElementById("months");
+    const incomeInput = document.getElementById("income");
+    const snmgInput = document.getElementById("snmg");
+    const familyStatus = document.getElementById("familyStatus");
+    const children = document.getElementById("children");
+    const breadwinner = document.getElementById("breadwinner");
+    const location = document.getElementById("location");
+    const result = document.getElementById("result");
+    const calcBtn = document.getElementById("calcBtn");
 
-    let pInc = pointsIncome(income, snmg);
-    if (pInc === -1) {
-      result.innerText = "❌ غير مؤهل حسب شرط الدخل";
-      return;
-    }
+    calcBtn.addEventListener("click", function() {
+      let months = parseInt(monthsInput.value) || 0;
+      let income = parseFloat(incomeInput.value) || 0;
+      let snmg = parseFloat(snmgInput.value) || 0;
 
-    let pSen = pointsSeniority(months);
-    let pFam = pointsFamily(familyStatus.value, parseInt(children.value) || 0);
-    let pBread = breadwinner.checked ? 5 : 0;
-    let pLoc = pointsLocation(location.value);
+      let pInc = pointsIncome(income, snmg);
+      if (pInc === -1) {
+        result.innerHTML = "❌ غير مؤهل حسب شرط الدخل";
+        return;
+      }
 
-    let total = pSen + pInc + pFam + pBread + pLoc;
+      let pSen = pointsSeniority(months);
+      let pFam = pointsFamily(familyStatus.value, parseInt(children.value) || 0);
+      let pBread = breadwinner.checked ? 5 : 0;
+      let pLoc = pointsLocation(location.value);
 
-    result.innerText =
-      `✅ مجموع النقاط: ${total}
-الأقدمية: ${pSen}
-الدخل: ${pInc}
-العائلة: ${pFam}
-الإعالة: ${pBread}
-القرب: ${pLoc}`;
-  }
+      let total = pSen + pInc + pFam + pBread + pLoc;
 
-  const monthsInput = document.getElementById("months");
-  const incomeInput = document.getElementById("income");
-  const snmgInput = document.getElementById("snmg");
-  const familyStatus = document.getElementById("familyStatus");
-  const children = document.getElementById("children");
-  const breadwinner = document.getElementById("breadwinner");
-  const location = document.getElementById("location");
-  const result = document.getElementById("result");
+      result.innerHTML =
+        `<span>✅ مجموع النقاط: <strong>${total}</strong></span>
+<span>📅 الأقدمية: ${pSen}</span>
+<span>💰 الدخل: ${pInc}</span>
+<span>👨‍👩‍👧 العائلة: ${pFam}</span>
+<span>👑 الإعالة: ${pBread}</span>
+<span>📍 القرب الجغرافي: ${pLoc}</span>`;
+    });
+  });
 </script>
 
 </body>
