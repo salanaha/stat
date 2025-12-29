@@ -1,210 +1,120 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>نظام حجز الغياب و الاستفسارات</title>
+    <meta charset="UTF-8">
+    <title>واجهة تطبيق مدرسي</title>
+    <style>
+        body {
+            font-family: Tahoma, Arial;
+            background-color: #eaffea;
+            margin: 0;
+            padding: 20px;
+        }
 
-<style>
-  body{
-    font-family: "Cairo", Tahoma, Arial;
-    background:#f3f4f6;
-    margin:0;
-    padding:0;
-  }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
 
-  .container{
-    width:90%;
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-  }
+        .item {
+            background: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-  h1{
-    text-align:center;
-    color:#1d4ed8;
-  }
+        .item:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
 
-  .card{
-    background:white;
-    padding:15px;
-    margin-top:10px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-  }
+        .item img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
 
-  label{
-    font-weight:bold;
-  }
-
-  input,select,textarea{
-    width:100%;
-    padding:8px;
-    margin-top:5px;
-    margin-bottom:10px;
-    border-radius:6px;
-    border:1px solid #ccc;
-  }
-
-  button{
-    background:#1d4ed8;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:6px;
-    cursor:pointer;
-  }
-
-  button:hover{
-    background:#2563eb;
-  }
-
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:10px;
-  }
-
-  th,td{
-    border:1px solid #ccc;
-    padding:8px;
-    text-align:center;
-  }
-
-  th{
-    background:#2563eb;
-    color:white;
-  }
-</style>
+        .title {
+            background-color: yellow;
+            padding: 5px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-
 <body>
+
+<h2 style="text-align:center;">لوحة التحكم</h2>
 
 <div class="container">
 
-<h1>نظام تسجيل الغياب و الإستفسارات</h1>
+    <div class="item">
+        <img src="icons/users.png" alt="">
+        <div class="title">المستخدمين</div>
+    </div>
 
-<!-- تسجيل الغياب -->
-<div class="card">
-  <h2>تسجيل غياب</h2>
+    <div class="item">
+        <img src="icons/students.png" alt="">
+        <div class="title">التلاميذ</div>
+    </div>
 
-  <label>اسم التلميذ</label>
-  <input type="text" id="studentName" placeholder="اكتب اسم التلميذ">
+    <div class="item">
+        <img src="icons/teachers.png" alt="">
+        <div class="title">الأساتذة</div>
+    </div>
 
-  <label>القسم</label>
-  <input type="text" id="className" placeholder="مثل: 2 متوسط - أ">
+    <div class="item">
+        <img src="icons/school.png" alt="">
+        <div class="title">معلومات المؤسسة</div>
+    </div>
 
-  <label>تاريخ الغياب</label>
-  <input type="date" id="date">
+    <div class="item">
+        <img src="icons/report.png" alt="">
+        <div class="title">تقرير الحاضر</div>
+    </div>
 
-  <button onclick="addAbsence()">تسجيل الغياب</button>
+    <div class="item">
+        <img src="icons/daily.png" alt="">
+        <div class="title">التقرير اليومي</div>
+    </div>
 
-  <table id="absenceTable">
-    <tr>
-      <th>اسم التلميذ</th>
-      <th>القسم</th>
-      <th>التاريخ</th>
-    </tr>
-  </table>
+    <div class="item">
+        <img src="icons/absence.png" alt="">
+        <div class="title">الغيابات</div>
+    </div>
+
+    <div class="item">
+        <img src="icons/classes.png" alt="">
+        <div class="title">الأقسام</div>
+    </div>
+
+    <div class="item">
+        <img src="icons/excel.png" alt="">
+        <div class="title">التنقيط</div>
+    </div>
+
+    <div class="item">
+        <img src="icons/settings.png" alt="">
+        <div class="title">الصيانة</div>
+    </div>
+
+    <div class="item">
+        <img src="icons/exams.png" alt="">
+        <div class="title">الامتحانات</div>
+    </div>
+
+    <div class="item">
+        <img src="icons/printer.png" alt="">
+        <div class="title">مطبوعات</div>
+    </div>
+
 </div>
-
-
-<!-- الاستفسارات -->
-<div class="card">
-  <h2>إرسال استفسار</h2>
-
-  <label>اسم التلميذ</label>
-  <input id="qName" type="text" placeholder="اسم التلميذ">
-
-  <label>الاستفسار</label>
-  <textarea id="question" rows="4" placeholder="اكتب استفسارك هنا..."></textarea>
-
-  <button onclick="sendQuestion()">إرسال</button>
-
-  <ul id="questionsList"></ul>
-</div>
-
-</div>
-
-<script>
-  // load saved data
-  window.onload = function(){
-    loadAbsences();
-    loadQuestions();
-  }
-
-  function addAbsence(){
-    let name = document.getElementById("studentName").value;
-    let cls = document.getElementById("className").value;
-    let date = document.getElementById("date").value;
-
-    if(name === "" || cls === "" || date === ""){
-      alert("رجاءً أكمل جميع الحقول");
-      return;
-    }
-
-    let absences = JSON.parse(localStorage.getItem("absences")) || [];
-    absences.push({name, cls, date});
-    localStorage.setItem("absences", JSON.stringify(absences));
-
-    loadAbsences();
-
-    document.getElementById("studentName").value = "";
-    document.getElementById("className").value = "";
-    document.getElementById("date").value = "";
-  }
-
-  function loadAbsences(){
-    let table = document.getElementById("absenceTable");
-    table.innerHTML = `
-      <tr>
-        <th>اسم التلميذ</th>
-        <th>القسم</th>
-        <th>التاريخ</th>
-      </tr>
-    `;
-
-    let absences = JSON.parse(localStorage.getItem("absences")) || [];
-
-    absences.forEach(a=>{
-      let row = table.insertRow();
-      row.insertCell(0).innerHTML = a.name;
-      row.insertCell(1).innerHTML = a.cls;
-      row.insertCell(2).innerHTML = a.date;
-    })
-  }
-
-  function sendQuestion(){
-    let name = document.getElementById("qName").value;
-    let question = document.getElementById("question").value;
-
-    if(name === "" || question === ""){
-      alert("رجاءً أكمل جميع الحقول");
-      return;
-    }
-
-    let qs = JSON.parse(localStorage.getItem("questions")) || [];
-    qs.push({name, question});
-    localStorage.setItem("questions", JSON.stringify(qs));
-
-    loadQuestions();
-
-    document.getElementById("qName").value = "";
-    document.getElementById("question").value = "";
-  }
-
-  function loadQuestions(){
-    let list = document.getElementById("questionsList");
-    list.innerHTML = "";
-
-    let qs = JSON.parse(localStorage.getItem("questions")) || [];
-
-    qs.forEach(q=>{
-      let li = document.createElement("li");
-      li.textContent = q.name + " : " + q.question;
-      list.appendChild(li);
-    })
-  }
-</script>
 
 </body>
 </html>
